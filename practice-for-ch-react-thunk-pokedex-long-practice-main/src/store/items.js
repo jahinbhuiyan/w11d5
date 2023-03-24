@@ -33,6 +33,23 @@ export const getItems = (id) => async (dispatch) => {
   } 
 }
 
+export const createItem = (data, pokemonId) => async dispatch => {
+  const res = await fetch(`/api/pokemion/${pokemonId}/items`,
+  {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+
+  if(res.ok){
+    const item = await res.json()
+    dispatch(add(item))
+    return item
+  }
+}
+
 const initialState = {};
 
 const itemsReducer = (state = initialState, action) => {
